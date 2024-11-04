@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input[type="date"], input[type="time"], input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f1ff;
+            border: 1px solid #bcd7ff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flight Price Predictor</h1>
+        <form id="predictionForm" action="/predict" method="post">
+            <label for="airline">Select Airline:</label>
+            <select id="airline" name="airline" required>
+                <option value="">--Select an Airline--</option>
+                <option value="Airline_Air India">Air India</option>
+                <option value="Airline_GoAir">GoAir</option>
+                <option value="Airline_IndiGo">IndiGo</option>
+                <option value="Airline_Jet Airways">Jet Airways</option>
+                <option value="Airline_Jet Airways Business">Jet Airways Business</option>
+                <option value="Airline_Multiple carriers">Multiple carriers</option>
+                <option value="Airline_Multiple carriers Premium economy">Multiple carriers Premium economy</option>
+                <option value="Airline_SpiceJet">SpiceJet</option>
+                <option value="Airline_Trujet">Trujet</option>
+                <option value="Airline_Vistara">Vistara</option>
+                <option value="Airline_Vistara Premium economy">Vistara Premium economy</option>
+            </select>
+            
+            <label for="source">Source:</label>
+            <select id="source" name="source" required>
+                <option value="">--Select a Source--</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+            
+            <label for="destination">Destination:</label>
+            <select id="destination" name="destination" required>
+                <option value="">--Select a Destination--</option>
+                <option value="Cochin">Cochin</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Kolkata">Kolkata</option>
+            </select>
+            
+            <label for="date_of_journey">Date of Journey:</label>
+            <input type="date" id="date_of_journey" name="date_of_journey" required>
+            
+            <label for="departure_time">Departure Time:</label>
+            <input type="time" id="departure_time" name="Dep_Time" required>
+            
+            <label for="arrival_time">Arrival Time:</label>
+            <input type="time" id="arrival_time" name="Arr_Time" required>
+            
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" name="Duration" placeholder="e.g., 2h 30m" required>
+            
+            <label for="total_stops">Total Stops:</label>
+            <input type="text" id="total_stops" name="stops" placeholder="e.g., 1 Stop" required>
+            
+            <button type="submit">Predict Price</button>
+        </form>
+        
+        <!-- Result display section -->
+        <div id="result">
+            {% if prediction_text %}
+                <p>{{ prediction_text }}</p>
+            {% else %}
+                <p>No prediction yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
